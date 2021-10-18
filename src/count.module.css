@@ -1,0 +1,56 @@
+.main {
+    margin-top: 40px;
+    text-align: center;
+    background: cornflowerblue;
+}
+
+.monitor {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 520px;
+    height: 140px;
+    background-color: cadetblue;
+    color: black;
+    font-size: 60px;
+    border-style: solid;
+}
+
+.monitorRed {
+    color: red;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 520px;
+    height: 140px;
+    background-color: cadetblue;
+    font-size: 60px;
+    border-style: solid;
+}
+
+.buttons {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 257px;
+    height: 50px;
+    background-color: cadetblue;
+    color: black;
+    border-style: solid;
+
+}
+
+.button {
+    width: 90px;
+    height: 40px;
+    border-radius: 8px;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.button:disabled {
+    opacity: 0.5;
+}
