@@ -7,10 +7,10 @@ type PropsType = {
 }
 
 export const Button = (props: PropsType) => (
-    <button
-      className={classes.button}
-      onClick={props.changeCountValue}
-      disabled={props.isDisabledButton}
-    >{props.title}
-    </button>
+  <button
+    className={classes.button}
+    onClick={props.changeCountValue}
+    disabled={props.isDisabledButton}
+  >{props.title}
+  </button>
 )

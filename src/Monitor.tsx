@@ -6,6 +6,7 @@ type PropsType = {
 }
 
 export const Monitor = (props: PropsType) => {
+
   const validClassName = (props.currentValue === props.maxValue)
     ? classes.monitorRed
     : classes.monitor;
