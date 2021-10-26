@@ -4,80 +4,80 @@ import {Button} from "./Button";
 import {ChangeEvent, useState} from "react";
 import {Tuner} from "./Tuner"
 
-const ONE = 1
-const START_VALUE = 0
 
-function App() {
+function App(props: any) {
+  const [minValue, setMinValue] = useState<number>(1);
+  const [maxValue, setMaxValue] = useState<number>(10);
+  const [displayValue, setDisplayValue] = useState<number>(0);
+  const [disableSetButton, setDisableSetButton] = useState(true);
 
-  const [currentValue, setCurrentValue] = useState(START_VALUE)
+  const isDisabledResetButton = displayValue === minValue
+  const isDisabledIncrementButton = displayValue === maxValue
 
-  //стэйт для инпута
-  const [editStartValue, setEditStartValue] = useState(currentValue)
-  //взяли значение из инпута
-  const onChangeValueHandler = (e: ChangeEvent<HTMLInputElement>) => setEditStartValue(e.currentTarget.valueAsNumber)
-  //задали стартовое значение
-  const startValue = editStartValue
-  //кнопка
-  const changeTunerValue = () => setCurrentValue(startValue || maxSetValue)
+  const handleResetValueClick = (): void => setDisplayValue(minValue)
 
-
-  const [maxTunerValue, setMaxTunerValue] = useState(10)
-  const onChangeMaxValueHandler = (e: ChangeEvent<HTMLInputElement>) => setMaxTunerValue(e.currentTarget.valueAsNumber)
-  const maxSetValue = maxTunerValue
-
-
-  const isDisabled = currentValue === maxSetValue
-  const isDropped = currentValue === startValue
-  const isIncorrectSettings = startValue < 0 || maxSetValue <= startValue
-
-
-  const changeValue = () => {
-    if (currentValue < maxSetValue) {
-      return setCurrentValue(currentValue + ONE)
-    }
-    setCurrentValue(maxSetValue)
+  const handleSetDisplayValueClick = (): void => {
+    setDisplayValue(minValue)
+    setDisableSetButton(true)
   }
 
-  const resetValue = () => setCurrentValue(startValue)
+  const handlePlusDisplayValueClick = (): void => setDisplayValue(prevState => +prevState + 1)
 
+  const handleMinValueChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setMinValue(+e.currentTarget.value)
+    setDisableSetButton(false)
+    setDisplayValue(props.getCorrectValue)
+  }
+
+  const handleMaxValueChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setMaxValue(+e.currentTarget.value)
+    setDisableSetButton(false)
+  }
+
+  const inputMinValueClassName = (minValue < 0) ? classes.tunerRed : ""
+  const inputMaxValueClassName = (maxValue <= minValue) ? classes.tunerRed : ""
 
   return (
     <div className={classes.main}>
       <div className={classes.boarder}>
-        <Tuner
-          title="start value"
-          value={startValue}
-          onChangeValueHandler={onChangeValueHandler}
-        />
-        <Tuner
-          title="max value"
-          value={maxSetValue}
-          onChangeValueHandler={onChangeMaxValueHandler}
-        />
+        <div className={inputMinValueClassName}>
+          <Tuner
+            title="Min Value"
+            value={minValue}
+            onInputValueChange={handleMinValueChange}
+          />
+        </div>
+        <div className={inputMaxValueClassName}>
+          <Tuner
+            title="Max Value"
+            value={maxValue}
+            onInputValueChange={handleMaxValueChange}
+          />
+        </div>
         <div className={classes.buttons}>
           <Button
             title="Set"
-            changeCountValue={changeTunerValue}
-            isDisabledButton={isIncorrectSettings}
+            onButtonClick={handleSetDisplayValueClick}
+            isDisabled={disableSetButton}
           />
-
         </div>
       </div>
       <div className={classes.boarder}>
         <Monitor
-          currentValue={currentValue}
-          maxValue={maxSetValue}
+          displayValue={displayValue}
+          minValue={minValue}
+          maxValue={maxValue}
         />
         <div className={classes.buttons}>
           <Button
-            title="inc"
-            changeCountValue={changeValue}
-            isDisabledButton={isDisabled}
+            title="Increment"
+            onButtonClick={handlePlusDisplayValueClick}
+            isDisabled={isDisabledIncrementButton}
           />
           <Button
-            title="res"
-            changeCountValue={resetValue}
-            isDisabledButton={isDropped}
+            title="Reset"
+            onButtonClick={handleResetValueClick}
+            isDisabled={isDisabledResetButton}
           />
         </div>
       </div>

@@ -2,14 +2,16 @@ import {ChangeEvent} from "react";
 
 type InputType = {
   value: number
-  onChangeValueHandler: (e: ChangeEvent<HTMLInputElement>) => void
-
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
-export const ControlledInput = (props:InputType) => {
-
+export const ControlledInput = (props: InputType) => {
   return (
-    <input value={props.value} type={"number"} onChange={props.onChangeValueHandler} />
+    <input
+      type={"number"}
+      value={props.value}
+      onChange={props.onChange}
+    />
   )
 }
 
