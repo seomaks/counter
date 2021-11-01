@@ -1,15 +1,50 @@
 import {Monitor} from "./Monitor";
 import classes from "./count.module.css";
 import {Button} from "./Button";
-import {ChangeEvent, useState} from "react";
+import {ChangeEvent, useEffect, useState} from "react";
 import {Tuner} from "./Tuner"
-
 
 function App(props: any) {
   const [minValue, setMinValue] = useState<number>(1);
   const [maxValue, setMaxValue] = useState<number>(10);
   const [displayValue, setDisplayValue] = useState<number>(0);
   const [disableSetButton, setDisableSetButton] = useState(true);
+
+  useEffect(()=> {
+    let minValueAsString = localStorage.getItem('minValue')
+    if (minValueAsString) {
+      let newMinValue = JSON.parse(minValueAsString)
+      setMinValue(newMinValue)
+    }
+  }, [])
+
+  useEffect(()=> {
+    let maxValueAsString = localStorage.getItem('maxValue')
+    if (maxValueAsString) {
+      let newMaxValue = JSON.parse(maxValueAsString)
+      setMaxValue(newMaxValue)
+    }
+  }, [])
+
+  useEffect(()=> {
+    let displayValueAsString = localStorage.getItem('displayValue')
+    if (displayValueAsString) {
+      let newDisplayValue = JSON.parse(displayValueAsString)
+      setDisplayValue(newDisplayValue)
+    }
+  }, [])
+
+  useEffect(()=> {
+localStorage.setItem('minValue', JSON.stringify(minValue))
+  }, [minValue])
+
+  useEffect(()=> {
+    localStorage.setItem('maxValue', JSON.stringify(maxValue))
+  }, [maxValue])
+
+  useEffect(()=> {
+    localStorage.setItem('displayValue', JSON.stringify(displayValue))
+  }, [displayValue])
 
   const isDisabledResetButton = displayValue === minValue
   const isDisabledIncrementButton = displayValue === maxValue

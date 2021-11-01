@@ -13,7 +13,7 @@ export const Monitor = (props: PropsType) => {
 
   const getCorrectValue = () => {
     const isMinValueIsNotLessFromZero = props.minValue < 0
-    const isMaxValueLessFromMinValue = props.maxValue < props.minValue
+    const isMaxValueLessFromMinValue = props.maxValue <= props.minValue
     const isDisplayValueNotEqualZero = props.displayValue !== 0
     const isMinValueEqualMaxValue = props.minValue === props.displayValue
     const isDisplayValueLessFromMaxValue = props.displayValue <= props.maxValue
@@ -23,7 +23,9 @@ export const Monitor = (props: PropsType) => {
     }
 
     if (
+      // eslint-disable-next-line
       (isMinValueEqualMaxValue && isDisplayValueNotEqualZero) ||
+      // eslint-disable-next-line
       isDisplayValueLessFromMaxValue && isDisplayValueNotEqualZero
     ) {
       return  props.displayValue
