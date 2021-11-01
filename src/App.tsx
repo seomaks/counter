@@ -1,10 +1,10 @@
-import {Monitor} from "./Monitor";
-import classes from "./count.module.css";
-import {Button} from "./Button";
 import {ChangeEvent, useEffect, useState} from "react";
+import {Monitor} from "./Monitor";
+import {Button} from "./Button";
 import {Tuner} from "./Tuner"
+import classes from "./count.module.css";
 
-function App(props: any) {
+function App() {
   const [minValue, setMinValue] = useState<number>(1);
   const [maxValue, setMaxValue] = useState<number>(10);
   const [displayValue, setDisplayValue] = useState<number>(0);
@@ -61,12 +61,13 @@ localStorage.setItem('minValue', JSON.stringify(minValue))
   const handleMinValueChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setMinValue(+e.currentTarget.value)
     setDisableSetButton(false)
-    setDisplayValue(props.getCorrectValue)
+    setDisplayValue(0)
   }
 
   const handleMaxValueChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setMaxValue(+e.currentTarget.value)
     setDisableSetButton(false)
+    setDisplayValue(0)
   }
 
   const inputMinValueClassName = (minValue < 0) ? classes.tunerRed : ""

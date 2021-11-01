@@ -1,6 +1,6 @@
+import {ChangeEvent} from "react";
 import classes from "./count.module.css";
 import {ControlledInput} from "./ControlledInput";
-import {ChangeEvent} from "react";
 
 type PropsType = {
   title: string
