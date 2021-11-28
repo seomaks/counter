@@ -1,4 +1,5 @@
 import classes from "./count.module.css";
+import React from "react";
 
 type PropsType = {
   displayValue: number
@@ -6,7 +7,8 @@ type PropsType = {
   maxValue: number
 }
 
-export const Monitor = (props: PropsType) => {
+export const Monitor = React.memo((props: PropsType) => {
+  console.log('Monitor')
   const validClassName = (props.displayValue === props.maxValue || props.maxValue <= props.minValue || props.minValue < 0)
     ? classes.monitorRed
     : classes.monitor;
@@ -44,4 +46,4 @@ export const Monitor = (props: PropsType) => {
       </span>
     </div>
   )
-}
+})

@@ -1,4 +1,4 @@
-import {ChangeEvent} from "react";
+import React, {ChangeEvent} from "react";
 import classes from "./count.module.css";
 import {ControlledInput} from "./ControlledInput";
 
@@ -8,7 +8,8 @@ type PropsType = {
   onInputValueChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
-export const Tuner = (props: PropsType) => {
+export const Tuner = React.memo((props: PropsType) => {
+  console.log('Tuner')
   return (
     <div className={classes.tuner}>
       <div>
@@ -20,4 +21,4 @@ export const Tuner = (props: PropsType) => {
       </div>
     </div>
   )
-}
+})

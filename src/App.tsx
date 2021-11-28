@@ -1,4 +1,4 @@
-import {ChangeEvent} from "react";
+import {ChangeEvent, useCallback} from "react";
 import {Monitor} from "./Monitor";
 import {Button} from "./Button";
 import {Tuner} from "./Tuner"
@@ -13,6 +13,7 @@ import {AppStateType} from "./store/store";
 
 
 function App() {
+  console.log('App')
   const defaultData = useSelector<AppStateType, initialStateType>(state => state.counter)
   const dispatch = useDispatch()
 
@@ -24,11 +25,13 @@ function App() {
 
   const handlePlusDisplayValueClick = () => dispatch(IncrementValueAC(defaultData.displayValue))
 
-  const handleMinValueChange = (e: ChangeEvent<HTMLInputElement>): void => {let targetValue = +e.currentTarget.value
-    dispatch(MinValueChangeAC(defaultData.minValue, defaultData.displayValue, defaultData.disableSetButton, targetValue))}
+  const handleMinValueChange = useCallback((e: ChangeEvent<HTMLInputElement>): void => {let targetValue = +e.currentTarget.value
+    dispatch(MinValueChangeAC(defaultData.minValue, defaultData.displayValue, defaultData.disableSetButton, targetValue))},
+    [defaultData.minValue, defaultData.displayValue, defaultData.disableSetButton, dispatch])
 
-  const handleMaxValueChange = (e: ChangeEvent<HTMLInputElement>): void => {let targetValue = +e.currentTarget.value
-    dispatch(MaxValueChangeAC(defaultData.maxValue, defaultData.displayValue, defaultData.disableSetButton, targetValue))}
+  const handleMaxValueChange = useCallback((e: ChangeEvent<HTMLInputElement>): void => {let targetValue = +e.currentTarget.value
+    dispatch(MaxValueChangeAC(defaultData.maxValue, defaultData.displayValue, defaultData.disableSetButton, targetValue))},
+    [defaultData.maxValue, defaultData.displayValue, defaultData.disableSetButton, dispatch])
 
   const isDisabledResetButton = defaultData.displayValue === defaultData.minValue
   const isDisabledIncrementButton = defaultData.displayValue === defaultData.maxValue
