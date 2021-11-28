@@ -16,56 +16,6 @@ function App() {
   const defaultData = useSelector<AppStateType, initialStateType>(state => state.counter)
   const dispatch = useDispatch()
 
- /* useEffect(()=> {
-    let minValueAsString = localStorage.getItem('minValue')
-    if (minValueAsString) {
-      let newMinValue = JSON.parse(minValueAsString)
-      setMinValue(newMinValue)
-    }
-  }, [])
-
-  useEffect(()=> {
-    let maxValueAsString = localStorage.getItem('maxValue')
-    if (maxValueAsString) {
-      let newMaxValue = JSON.parse(maxValueAsString)
-      setMaxValue(newMaxValue)
-    }
-  }, [])
-
-  useEffect(()=> {
-    let displayValueAsString = localStorage.getItem('displayValue')
-    if (displayValueAsString) {
-      let newDisplayValue = JSON.parse(displayValueAsString)
-      setDisplayValue(newDisplayValue)
-    }
-  }, [])
-
-  useEffect(()=> {
-localStorage.setItem('minValue', JSON.stringify(minValue))
-  }, [minValue])
-
-  useEffect(()=> {
-    localStorage.setItem('maxValue', JSON.stringify(maxValue))
-  }, [maxValue])
-
-  useEffect(()=> {
-    localStorage.setItem('displayValue', JSON.stringify(displayValue))
-  }, [displayValue])*/
-
-  //new UseEffect
-
-  /*  useEffect(()=> {
-    let data = localStorage.getItem('data')
-    if (data) {
-      setDefaultData(JSON.parse(data))
-    }
-  }, [])
-
-  useEffect(()=> {
-    localStorage.setItem('data', JSON.stringify(data))
-  }, [data])*/
-
-
   const handleResetValueClick = () =>
     dispatch(DisplayValueAC(defaultData.minValue))
 
@@ -82,8 +32,8 @@ localStorage.setItem('minValue', JSON.stringify(minValue))
 
   const isDisabledResetButton = defaultData.displayValue === defaultData.minValue
   const isDisabledIncrementButton = defaultData.displayValue === defaultData.maxValue
-  const inputMinValueClassName = (defaultData.minValue < 0) ? classes.tunerRed : ""
-  const inputMaxValueClassName = (defaultData.maxValue <= defaultData.minValue) ? classes.tunerRed : ""
+  const inputMinValueClassName = (defaultData.minValue < 0 || defaultData.minValue === defaultData.maxValue) ? classes.tunerRed : ""
+  const inputMaxValueClassName = (defaultData.maxValue <= defaultData.minValue || defaultData.minValue === defaultData.maxValue) ? classes.tunerRed : ""
 
   return (
     <div className={classes.main}>
