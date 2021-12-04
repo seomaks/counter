@@ -23,16 +23,9 @@ export const Monitor = React.memo((props: PropsType) => {
     if (isMinValueIsNotLessFromZero || isMaxValueLessFromMinValue) {
       return 'Error'
     }
-
-    if (
-      // eslint-disable-next-line
-      (isMinValueEqualMaxValue && isDisplayValueNotEqualZero) ||
-      // eslint-disable-next-line
-      isDisplayValueLessFromMaxValue && isDisplayValueNotEqualZero
-    ) {
-      return  props.displayValue
+    if (((isMinValueEqualMaxValue && isDisplayValueNotEqualZero) || isDisplayValueLessFromMaxValue) && isDisplayValueNotEqualZero) {
+      return props.displayValue
     }
-
     return 'Set Value'
   }
 

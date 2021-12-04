@@ -11,7 +11,6 @@ import {
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "./store/store";
 
-
 function App() {
   console.log('App')
   const defaultData = useSelector<AppStateType, initialStateType>(state => state.counter)
@@ -25,12 +24,16 @@ function App() {
 
   const handlePlusDisplayValueClick = () => dispatch(IncrementValueAC(defaultData.displayValue))
 
-  const handleMinValueChange = useCallback((e: ChangeEvent<HTMLInputElement>): void => {let targetValue = +e.currentTarget.value
+  const handleMinValueChange = useCallback((e: ChangeEvent<HTMLInputElement>): void => {
+    const targetValue = +e.currentTarget.value
+
     dispatch(MinValueChangeAC(defaultData.minValue, defaultData.displayValue, defaultData.disableSetButton, targetValue))},
     [defaultData.minValue, defaultData.displayValue, defaultData.disableSetButton, dispatch])
 
-  const handleMaxValueChange = useCallback((e: ChangeEvent<HTMLInputElement>): void => {let targetValue = +e.currentTarget.value
-    dispatch(MaxValueChangeAC(defaultData.maxValue, defaultData.displayValue, defaultData.disableSetButton, targetValue))},
+  const handleMaxValueChange = useCallback((e: ChangeEvent<HTMLInputElement>): void => {
+    const targetValue = +e.currentTarget.value
+
+      dispatch(MaxValueChangeAC(defaultData.maxValue, defaultData.displayValue, defaultData.disableSetButton, targetValue))},
     [defaultData.maxValue, defaultData.displayValue, defaultData.disableSetButton, dispatch])
 
   const isDisabledResetButton = defaultData.displayValue === defaultData.minValue
